@@ -19,7 +19,7 @@ class UserViewCell: UITableViewCell {
         super.awakeFromNib()
         let theWidth = UIScreen.mainScreen().bounds.width
         contentView.frame = CGRectMake(0, 0, theWidth, 64)
-        profilePic.center = CGPointMake(32, 32)
+        profilePic.center = CGPointMake(52, 52)
         profilePic.layer.cornerRadius = profilePic.frame.width / 2
         profilePic.clipsToBounds = true
 
