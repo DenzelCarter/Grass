@@ -32,6 +32,7 @@
 		066505121B23D9F800F28915 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 066505111B23D9F800F28915 /* libz.dylib */; };
 		066505181B23E4FF00F28915 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066505171B23E4FF00F28915 /* UsersViewController.swift */; };
 		0665051A1B23EDA400F28915 /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066505191B23EDA400F28915 /* UserViewCell.swift */; };
+		069B57ED1B25005900221260 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069B57EC1B25005900221260 /* ConversationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		066505111B23D9F800F28915 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		066505171B23E4FF00F28915 /* UsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		066505191B23EDA400F28915 /* UserViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
+		069B57EC1B25005900221260 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				066504D01B22916400F28915 /* AppDelegate.swift */,
 				066504D21B22916400F28915 /* LoginViewController.swift */,
 				066504D41B22916400F28915 /* Main.storyboard */,
+				069B57EC1B25005900221260 /* ConversationViewController.swift */,
 				066505191B23EDA400F28915 /* UserViewCell.swift */,
 				066505171B23E4FF00F28915 /* UsersViewController.swift */,
 				066504F01B23D33300F28915 /* SignUpViewController.swift */,
@@ -296,6 +299,7 @@
 			files = (
 				066504F11B23D33300F28915 /* SignUpViewController.swift in Sources */,
 				0665051A1B23EDA400F28915 /* UserViewCell.swift in Sources */,
+				069B57ED1B25005900221260 /* ConversationViewController.swift in Sources */,
 				066505181B23E4FF00F28915 /* UsersViewController.swift in Sources */,
 				066504D31B22916400F28915 /* LoginViewController.swift in Sources */,
 				066504D11B22916400F28915 /* AppDelegate.swift in Sources */,
@@ -502,6 +506,7 @@
 				066504EC1B22916400F28915 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		066504ED1B22916400F28915 /* Build configuration list for PBXNativeTarget "GrassTests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +515,7 @@
 				066504EF1B22916400F28915 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

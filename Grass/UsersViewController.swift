@@ -56,6 +56,16 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        var cell = tableView.cellForRowAtIndexPath(indexPath) as! UserViewCell
+        
+        otherName = cell.usernameTxt.text!
+        otherProfileName = cell.usernameTxt.text!
+        self.performSegueWithIdentifier("goToConversationVC", sender: self)
+        
+    }
+    
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         

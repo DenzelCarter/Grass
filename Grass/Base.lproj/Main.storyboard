@@ -57,7 +57,8 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="passwordTxt" destination="bM0-kb-Lkq" id="0BF-VV-sD6"/>
                         <outlet property="usernameTxt" destination="zQD-9B-0nL" id="vek-kZ-IGD"/>
@@ -135,7 +136,8 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="Y7d-8U-HBw"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="emailTxt" destination="scJ-vE-NHv" id="49a-VB-eVs"/>
                         <outlet property="passwordTxt" destination="x16-wW-4WL" id="VkO-Dn-DqC"/>
@@ -202,14 +204,75 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="resultsTable" destination="7AS-xw-W8p" id="ETt-Jw-ajb"/>
+                        <segue destination="j57-eY-X9C" kind="push" identifier="goToConversationVC" id="Xn5-kz-dZa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gez-Oa-QHM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="947.5" y="1180.5"/>
+        </scene>
+        <!--Conversation View Controller-->
+        <scene sceneID="Iyg-G4-Lhg">
+            <objects>
+                <viewController id="j57-eY-X9C" customClass="ConversationViewController" customModule="Grass" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="keU-FW-Nnj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="qF6-Ng-uUp">
+                                <rect key="frame" x="0.0" y="64" width="375" height="531"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                            <view contentMode="scaleToFill" id="rZB-dA-EtF">
+                                <rect key="frame" x="0.0" y="594" width="375" height="73"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BOg-Dr-HmU">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8eR-m6-gah">
+                                        <rect key="frame" x="0.0" y="4" width="312" height="65"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EBZ-4M-erA">
+                                        <rect key="frame" x="321" y="22" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Send">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pCh-yI-oXP"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <connections>
+                        <outlet property="frameMessageView" destination="rZB-dA-EtF" id="7Mn-nW-aDq"/>
+                        <outlet property="lineLbl" destination="BOg-Dr-HmU" id="Bu7-QD-uCJ"/>
+                        <outlet property="messageTextView" destination="8eR-m6-gah" id="DGr-ia-I79"/>
+                        <outlet property="resultsScrollView" destination="qF6-Ng-uUp" id="8jD-jl-XBQ"/>
+                        <outlet property="sendBtn" destination="EBZ-4M-erA" id="zTV-Oa-SZP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y3o-76-QQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1395.5" y="1180.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pQp-8W-Nf5">
@@ -239,6 +302,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="wln-C3-VJN"/>
+        <segue reference="ajM-Pa-aef"/>
     </inferredMetricsTieBreakers>
 </document>
