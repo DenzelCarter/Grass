@@ -14,29 +14,33 @@ var otherName = ""
 var otherProfileName = ""
 
 class ConversationViewController: UIViewController, UIScrollViewDelegate {
-    
     @IBOutlet var resultsScrollView: UIScrollView!
-    
     @IBOutlet var frameMessageView: UIView!
-    
     @IBOutlet var lineLbl: UILabel!
-    
     @IBOutlet var messageTextView: UITextView!
-    
     @IBOutlet var sendBtn: UIButton!
-    
     var scrollViewOriginalY:CGFloat = 0
-    
     var frameMessageOriginalY:CGFloat = 0
-    
     let mLbl = UILabel(frame: CGRectMake(5, 8, 200, 20))
+    
     
     var messageX:CGFloat = 37.0
     var messageY:CGFloat = 26.0
+    var frameX:CGFloat = 32.0
+    var frameY:CGFloat = 21.0
+    
     
     var messageArray = [String]()
     var senderArray = [String]()
+    var imgX:CGFloat = 3
+    var imgY:CGFloat = 3
     
+    var myImg:UIImage = UIImage()
+    var otherImage:UIImage = UIImage()
+    
+    var resultsImageFiles = [PFFile]()
+    var resultsImageFiles2 = [PFFile]()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,10 +63,53 @@ class ConversationViewController: UIViewController, UIScrollViewDelegate {
         mLbl.backgroundColor = UIColor.clearColor()
         mLbl.textColor = UIColor.lightGrayColor()
         messageTextView.addSubview(mLbl)
-        refreshResults()
+        //refreshResults()
         
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        var query = PFQuery(className: "_User")
+        query.whereKey("username", equalTo: userName)
+        var objects = query.findObjects()
+        self.resultsImageFiles.removeAll(keepCapacity: false)
+        
+        for object in objects! {
+        
+            self.resultsImageFiles.append(object["profilePic"] as! PFFile)
+            self.resultsImageFiles[0].getDataInBackgroundWithBlock {
+                (imageData:NSData?, error:NSError?) ->  Void in
+                
+                if error == nil {
+                    
+                    self.myImg = UIImage(data: imageData!)!
+                    var query2 = PFQuery(className: "_User")
+                    query2.whereKey("username", equalTo: otherName)
+                    var objects2 = query2.findObjects()
+                    self.resultsImageFiles2.removeAll(keepCapacity: false)
+                    
+                    for object in objects2! {
+                        self.resultsImageFiles2.append(object["profilePic"] as! PFFile)
+                        self.resultsImageFiles2[0].getDataInBackgroundWithBlock {
+                            (imageData:NSData?, error:NSError?) ->  Void in
+                            
+                            
+                            if error == nil {
+                                
+                                self.otherImage = UIImage(data: imageData!)!
+                                self.refreshResults()
+                            }
+                        }
+
+                        
+                    }
+                    
+                }
+            }
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +124,12 @@ class ConversationViewController: UIViewController, UIScrollViewDelegate {
         
         messageX = 37.0
         messageY = 26.0
+        frameX = 32.0
+        frameY = 21.0
+        imgX = 3
+        imgY = 3
+        
+        
         
         messageArray.removeAll(keepCapacity: false)
         messageArray.removeAll(keepCapacity: false)
@@ -99,6 +152,107 @@ class ConversationViewController: UIViewController, UIScrollViewDelegate {
                     self.senderArray.append(object.objectForKey("sender") as! String)
                     self.senderArray.append(object.objectForKey("message") as! String)
 
+                }
+                
+                for subView in self.resultsScrollView.subviews {
+                    subView.removeFromSuperview()
+                    
+                }
+                
+                for var i = 0; i <= self.messageArray.count-1; i++ {
+                    
+                    if self.senderArray[i] == userName {
+                        
+                        var messageLbl:UILabel = UILabel()
+                        messageLbl.frame = CGRectMake(0, 0, self.resultsScrollView.frame.size.width-94, CGFloat.max)
+                        messageLbl.backgroundColor = UIColor.groupTableViewBackgroundColor()
+                        messageLbl.lineBreakMode = NSLineBreakMode.ByWordWrapping
+                        messageLbl.textAlignment = NSTextAlignment.Left
+                        messageLbl.numberOfLines = 0
+                        messageLbl.font = UIFont(name: "Helvetica Neuse", size: 17)
+                        messageLbl.textColor = UIColor.blackColor()
+                        messageLbl.text = self.messageArray[i]
+                        messageLbl.sizeToFit()
+                        messageLbl.layer.zPosition = 20
+                        messageLbl.frame.origin.x = (self.resultsScrollView.frame.size.width - self.messageX) - messageLbl.frame.size.width
+                        messageLbl.frame.origin.y = self.messageY
+                        self.resultsScrollView.addSubview(messageLbl)
+                        self.messageY += messageLbl.frame.size.height + 30
+                        
+                        var frameLbl:UILabel = UILabel()
+                        frameLbl.frame.size = CGSizeMake(messageLbl.frame.size.width+10, messageLbl.frame.size.height+10)
+                        frameLbl.frame.origin.x = (self.resultsScrollView.frame.size.width - self.frameX) - frameLbl.frame.size.width
+                        frameLbl.frame.origin.y = self.frameY
+                        frameLbl.backgroundColor = UIColor.groupTableViewBackgroundColor()
+                        frameLbl.layer.masksToBounds = true
+                        frameLbl.layer.cornerRadius = 10
+                        self.resultsScrollView.addSubview(frameLbl)
+                        self.frameY += frameLbl.frame.size.height + 20
+                        
+                        var img:UIImageView = UIImageView()
+                        img.image = self.myImg
+                        img.frame.size = CGSizeMake(34,34)
+                        img.frame.origin.x = (self.resultsScrollView.frame.size.width - self.imgX) - img.frame.size.width
+                        
+                        img.frame.origin.y = self.imgY
+                        img.layer.zPosition = 30
+                        img.layer.cornerRadius = img.frame.size.width/2
+                        img.clipsToBounds = true
+                        self.resultsScrollView.addSubview(img)
+                        self.imgY += frameLbl.frame.size.height + 20
+                        
+                        self.resultsScrollView.contentSize = CGSizeMake(theWidth, self.messageY)
+                        
+                        
+                        
+                        
+                        
+                    } else {
+                        
+                        var messageLbl:UILabel = UILabel()
+                        messageLbl.frame = CGRectMake(0, 0, self.resultsScrollView.frame.size.width-94, CGFloat.max)
+                        messageLbl.backgroundColor = UIColor.groupTableViewBackgroundColor()
+                        messageLbl.lineBreakMode = NSLineBreakMode.ByWordWrapping
+                        messageLbl.textAlignment = NSTextAlignment.Left
+                        messageLbl.numberOfLines = 0
+                        messageLbl.font = UIFont(name: "Helvetica Neuse", size: 17)
+                        messageLbl.textColor = UIColor.blackColor()
+                        messageLbl.text = self.messageArray[i]
+                        messageLbl.sizeToFit()
+                        messageLbl.layer.zPosition = 20
+                        messageLbl.frame.origin.x = self.messageX
+                        messageLbl.frame.origin.y = self.messageY
+                        self.resultsScrollView.addSubview(messageLbl)
+                        self.messageY += messageLbl.frame.size.height + 30
+                        
+                        var frameLbl:UILabel = UILabel()
+                        frameLbl.frame = CGRectMake(self.frameX, self.frameY, messageLbl.frame.size.width+10, messageLbl.frame.size.height + 10)
+                        frameLbl.backgroundColor = UIColor.blackColor()
+                        frameLbl.layer.masksToBounds = true
+                        frameLbl.layer.cornerRadius = 10
+                        self.resultsScrollView.addSubview(frameLbl)
+                        self.frameY += frameLbl.frame.size.height + 20
+                        
+                        var img:UIImageView = UIImageView()
+                        img.image = self.otherImage
+                        img.frame = CGRectMake(self.imgX, self.imgY, 34, 34)
+                        img.layer.zPosition = 30
+                        img.layer.cornerRadius = img.frame.size.width/2
+                        img.clipsToBounds = true
+                        self.resultsScrollView.addSubview(img)
+                        self.imgY += frameLbl.frame.size.height + 20
+
+                        
+                        self.resultsScrollView.contentSize = CGSizeMake(theWidth, self.messageY)
+                        
+
+                        
+                        
+                    }
+                    
+                    var bottomOffset:CGPoint = CGPointMake(0, self.resultsScrollView.contentSize.height - self.resultsScrollView.bounds.size.height)
+                    
+                    self.resultsScrollView.setContentOffset(bottomOffset, animated: false)
                 }
             }
         }
