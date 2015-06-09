@@ -37,7 +37,7 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
         for object in objects! {
             
             self.resultsUsernameArray.append(object["username"] as! String)
-            self.resultsImageFiles.append(object["profilePic"] as! PFFile)
+            self.resultsImageFiles.append(object["photo"] as! PFFile)
             
             self.resultsTable.reloadData()
         }

@@ -13,7 +13,7 @@ import ParseUI
 var otherName = ""
 var otherProfileName = ""
 
-class ConversationViewController: UIViewController, UIScrollViewDelegate {
+class ConversationViewController: UIViewController, UIScrollViewDelegate, UITextViewDelegate {
     @IBOutlet var resultsScrollView: UIScrollView!
     @IBOutlet var frameMessageView: UIView!
     @IBOutlet var lineLbl: UILabel!
@@ -40,6 +40,35 @@ class ConversationViewController: UIViewController, UIScrollViewDelegate {
     
     var resultsImageFiles = [PFFile]()
     var resultsImageFiles2 = [PFFile]()
+    
+    
+    @IBAction func send_messageBtn(sender: AnyObject) {
+        
+        if messageTextView.text == "" {
+            
+            println("no text")
+            
+        } else {
+            var messageDBTable = PFObject(className: "Messages")
+            messageDBTable["sender"] = userName
+            messageDBTable["other"] = otherName
+            messageDBTable["message"] = self.messageTextView.text
+            messageDBTable.saveInBackgroundWithBlock {
+                (success:Bool, error:NSError?) -> Void in
+                
+                if success == true {
+                    
+                    println("message sent")
+                    self.messageTextView.text = ""
+                    self.mLbl.hidden = false
+                    self.refreshResults()
+                }
+            }
+            
+            
+        }
+    }
+    
 
 
     override func viewDidLoad() {
@@ -63,10 +92,84 @@ class ConversationViewController: UIViewController, UIScrollViewDelegate {
         mLbl.backgroundColor = UIColor.clearColor()
         mLbl.textColor = UIColor.lightGrayColor()
         messageTextView.addSubview(mLbl)
-        //refreshResults()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+
+        let tapScrollViewGesture = UITapGestureRecognizer(target: self, action: "didTapScrollView")
+        tapScrollViewGesture.numberOfTapsRequired = 1
+        resultsScrollView.addGestureRecognizer(tapScrollViewGesture)
+
 
         // Do any additional setup after loading the view.
+    }
+    
+    func didTapScrollView() {
+        
+        self.view.endEditing(true)
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        
+        if !messageTextView.hasText() {
+            
+            self.mLbl.hidden = false
+        } else {
+            
+            self.mLbl.hidden = true
+        }
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        
+        if !messageTextView.hasText() {
+            
+            self.mLbl.hidden = false
+        }
+    }
+    
+    func keyboardWasShown(notification:NSNotification) {
+        
+        let dict:NSDictionary = notification.userInfo!
+        let s:NSValue = dict.valueForKey(UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let rect:CGRect = s.CGRectValue()
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            
+            self.resultsScrollView.frame.origin.y = self.scrollViewOriginalY - rect.height
+            self.frameMessageView.frame.origin.y = self.frameMessageOriginalY - rect.height
+            
+            var bottomOffset:CGPoint = CGPointMake(0, self.resultsScrollView.contentSize.height - self.resultsScrollView.bounds.size.height)
+            self.resultsScrollView.setContentOffset(bottomOffset, animated: false)
+            
+            }, completion: {
+                (finished:Bool) in
+                
+        })
+        
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        
+        let dict:NSDictionary = notification.userInfo!
+        let s:NSValue = dict.valueForKey(UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let rect:CGRect = s.CGRectValue()
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            
+            self.resultsScrollView.frame.origin.y = self.scrollViewOriginalY
+            self.frameMessageView.frame.origin.y = self.frameMessageOriginalY
+            
+            var bottomOffset:CGPoint = CGPointMake(0, self.resultsScrollView.contentSize.height - self.resultsScrollView.bounds.size.height)
+            self.resultsScrollView.setContentOffset(bottomOffset, animated: false)
+            
+            }, completion: {
+                (finished:Bool) in
+                
+        })
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -111,6 +214,7 @@ class ConversationViewController: UIViewController, UIScrollViewDelegate {
         }
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -165,12 +269,12 @@ class ConversationViewController: UIViewController, UIScrollViewDelegate {
                         
                         var messageLbl:UILabel = UILabel()
                         messageLbl.frame = CGRectMake(0, 0, self.resultsScrollView.frame.size.width-94, CGFloat.max)
-                        messageLbl.backgroundColor = UIColor.groupTableViewBackgroundColor()
+                        messageLbl.backgroundColor = UIColor.blueColor()
                         messageLbl.lineBreakMode = NSLineBreakMode.ByWordWrapping
                         messageLbl.textAlignment = NSTextAlignment.Left
                         messageLbl.numberOfLines = 0
                         messageLbl.font = UIFont(name: "Helvetica Neuse", size: 17)
-                        messageLbl.textColor = UIColor.blackColor()
+                        messageLbl.textColor = UIColor.whiteColor()
                         messageLbl.text = self.messageArray[i]
                         messageLbl.sizeToFit()
                         messageLbl.layer.zPosition = 20
@@ -183,7 +287,7 @@ class ConversationViewController: UIViewController, UIScrollViewDelegate {
                         frameLbl.frame.size = CGSizeMake(messageLbl.frame.size.width+10, messageLbl.frame.size.height+10)
                         frameLbl.frame.origin.x = (self.resultsScrollView.frame.size.width - self.frameX) - frameLbl.frame.size.width
                         frameLbl.frame.origin.y = self.frameY
-                        frameLbl.backgroundColor = UIColor.groupTableViewBackgroundColor()
+                        frameLbl.backgroundColor = UIColor.blueColor()
                         frameLbl.layer.masksToBounds = true
                         frameLbl.layer.cornerRadius = 10
                         self.resultsScrollView.addSubview(frameLbl)

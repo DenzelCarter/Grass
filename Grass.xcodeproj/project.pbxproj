@@ -28,7 +28,6 @@
 		066505091B23D75200F28915 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 066505081B23D75200F28915 /* Security.framework */; };
 		0665050B1B23D75800F28915 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0665050A1B23D75800F28915 /* QuartzCore.framework */; };
 		0665050D1B23D75F00F28915 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0665050C1B23D75F00F28915 /* libsqlite3.dylib */; };
-		0665050F1B23D76900F28915 /* dylib1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 0665050E1B23D76900F28915 /* dylib1.o */; };
 		066505121B23D9F800F28915 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 066505111B23D9F800F28915 /* libz.dylib */; };
 		066505181B23E4FF00F28915 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066505171B23E4FF00F28915 /* UsersViewController.swift */; };
 		0665051A1B23EDA400F28915 /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066505191B23EDA400F28915 /* UserViewCell.swift */; };
@@ -71,7 +70,6 @@
 		066505081B23D75200F28915 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0665050A1B23D75800F28915 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0665050C1B23D75F00F28915 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		0665050E1B23D76900F28915 /* dylib1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = dylib1.o; path = usr/lib/dylib1.o; sourceTree = SDKROOT; };
 		066505111B23D9F800F28915 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		066505171B23E4FF00F28915 /* UsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		066505191B23EDA400F28915 /* UserViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				066505121B23D9F800F28915 /* libz.dylib in Frameworks */,
-				0665050F1B23D76900F28915 /* dylib1.o in Frameworks */,
 				0665050D1B23D75F00F28915 /* libsqlite3.dylib in Frameworks */,
 				0665050B1B23D75800F28915 /* QuartzCore.framework in Frameworks */,
 				066505091B23D75200F28915 /* Security.framework in Frameworks */,
@@ -178,7 +175,6 @@
 			children = (
 				066505111B23D9F800F28915 /* libz.dylib */,
 				0665050C1B23D75F00F28915 /* libsqlite3.dylib */,
-				0665050E1B23D76900F28915 /* dylib1.o */,
 				066504F81B23D71500F28915 /* Accounts.framework */,
 				066504FA1B23D71C00F28915 /* CFNetwork.framework */,
 				066504FC1B23D72300F28915 /* MobileCoreServices.framework */,

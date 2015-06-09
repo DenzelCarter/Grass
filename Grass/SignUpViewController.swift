@@ -110,7 +110,7 @@ class SignUpViewController: UIViewController , UIImagePickerControllerDelegate, 
             user.username = usernameTxt.text
             user.password = passwordTxt.text
             user.email = emailTxt.text
-            user["profilePic"] = profileImageFile
+            user["photo"] = profileImageFile
             user.signUpInBackgroundWithBlock {
                 (succeeded, signUpError) -> Void in
                 
